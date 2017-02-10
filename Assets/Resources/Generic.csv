@@ -1,0 +1,17 @@
+Pelvis,0,-90,-90
+Chest,0,-90,-90
+Head,0,-90,-90
+Rclavicle,90,180,0
+Rupperarm,90,180,0
+Rforearm,90,180,0
+Rhand,0,0,180
+RThigh,0,90,90
+RCalf,0,90,90
+RFoot,0,90,90
+Lclavicle,-90,0,0
+Lupperarm,-90,0,0
+Lforearm,-90,0,0
+Lhand,-180,0,0
+LThigh,0,90,90
+LCalf,0,90,90
+LFoot,0,90,90
