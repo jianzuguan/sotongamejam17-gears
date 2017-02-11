@@ -6,9 +6,13 @@ public class FootfallControler : MonoBehaviour {
 
     private bool grounded = false;
     private int state = 0;
+    private int stateLeft;
+    private int stateRight;
 
     private Vector3 groundedlocation;
     private string groundedname;
+
+    private Vector3 modeloc;
 
 
 	// Use this for initialization
@@ -26,33 +30,65 @@ public class FootfallControler : MonoBehaviour {
     {
         foreach (ContactPoint contact in collision.contacts) {
 
-            if (contact.thisCollider.name != groundedname)
+            if (contact.thisCollider.name != groundedname && contact.otherCollider.name != "Gear_000" && contact.otherCollider.name != "Gear_001" && contact.otherCollider.name != "Gear_002")
             {
+
                 groundedname = contact.thisCollider.name;
                 groundedlocation.x = GameObject.Find(groundedname).GetComponent<Transform>().position.x;
                 groundedlocation.y = GameObject.Find(groundedname).GetComponent<Transform>().position.y;
                 groundedlocation.z = GameObject.Find(groundedname).GetComponent<Transform>().position.z;
-                Debug.Log("New collision point " + groundedname + " at " + groundedlocation.ToString());
+                Debug.Log("New collision point " + groundedname + " at " + groundedlocation.ToString() + "\r\n"
+                    + "Last footfall moved " + (modeloc-transform.position).ToString() 
+                    + "Colcount = " + stateLeft.ToString() + " / " + stateRight.ToString() );
+
+                modeloc = transform.position;   //update model position
+
+                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.transform.position = groundedlocation;
+                cube.transform.localScale = new Vector3((float)0.2, (float)0.2, (float)0.2);
+                cube.GetComponent<Collider>().enabled = false;
+                cube.GetComponent<MeshRenderer>().material.color = new Color(1, 0, 0);
             }
             Debug.DrawRay(contact.point, contact.normal*100, Color.red);
-        }
 
-	    state ++;
-	    if(state > 0)
-	    {
-		    grounded = true;
-	    }
+            state++;
+            if (state > 0)
+            {
+                grounded = true;
+            }
+
+            if (contact.thisCollider.name == "EthanLeftFoot")
+            {
+                stateLeft++;
+            }
+            if (contact.thisCollider.name == "EthanRightFoot")
+            {
+                stateRight++;
+            }
+        }
     }
- 
- 
-    void OnCollisionExit ()
+
+
+    void OnCollisionExit(Collision collision)
     {
-	    state --;
-	    if(state < 1)
-	    {
-		    grounded = false;
-		    state = 0;
-	    }
+        foreach (ContactPoint contact in collision.contacts)
+        {
+
+            state++;
+            if (state > 0)
+            {
+                grounded = true;
+            }
+
+            if (contact.thisCollider.name == "EthanLeftFoot")
+            {
+                stateLeft--;
+            }
+            if (contact.thisCollider.name == "EthanRightFoot")
+            {
+                stateRight--;
+            }
+        }
     }
 
     // This is called every physics frame
