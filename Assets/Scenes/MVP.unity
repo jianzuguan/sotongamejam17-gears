@@ -257,7 +257,6 @@ MonoBehaviour:
   xTiltAngle: 10
   yTiltAngle: 10
   zTiltAngle: 10
-  smooth: 2
 --- !u!1 &1190450685
 GameObject:
   m_ObjectHideFlags: 0

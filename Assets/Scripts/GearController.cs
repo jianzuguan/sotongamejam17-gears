@@ -10,7 +10,7 @@ public class GearController : MonoBehaviour {
 
     [Header("Percent of speed in axis")]
     [Range(0.0f, 1.0f)]
-    public float x = 1;
+    public float x = 0;
     [Range(0.0f, 1.0f)]
     public float y = 0;
     [Range(0.0f, 1.0f)]
@@ -22,10 +22,10 @@ public class GearController : MonoBehaviour {
     public bool zAnticlockwise = false;
 
     [Header("Speed")]
-    public float speed = 3;
-    public float xTiltAngle = 10;
-    public float yTiltAngle = 10;
-    public float zTiltAngle = 10;
+    public float speed = 1;
+    public float xTiltAngle = 5;
+    public float yTiltAngle = 5;
+    public float zTiltAngle = 5;
 
     // Use this for initialization
     void Start() {
