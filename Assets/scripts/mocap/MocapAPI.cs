@@ -94,7 +94,7 @@ public class MocapAPI : MonoBehaviour {
 		}
 		else
 		{
-			return (new Quaternion(quatX, -quatZ, quatY, quatW));
+			return (new Quaternion(quatX, -quatZ, quatY, quatW)*Quaternion.Euler(new Vector3(0,180,0)));
 		}
     }
 
