@@ -21,6 +21,8 @@ public class FootfallControler : MonoBehaviour {
 
     private Vector3 modeloc;
 
+    public GameObject badEndUI;
+
 
 	// Use this for initialization
 	void Start () {
@@ -150,11 +152,20 @@ public class FootfallControler : MonoBehaviour {
         }
 
         groundedlocation += transform.forward*(Input.GetAxis("Vertical") * Time.fixedDeltaTime);
+
+        if(Input.GetButton("Reset"))
+        {
+            transform.position = new Vector3((float)-1.1, (float)-11.26, (float)-1.1);
+            clearGrounded();
+            this.badEndUI.SetActive(false);
+        }
     }
 
     public void clearGrounded()
     {
         this.state = 0;
         this.grounded = false;
+        lastLowest = "EthanRightFoot";
+        lastlowestpoint = GameObject.Find("EthanRightFoot").GetComponent<Transform>().position;
     }
 }
