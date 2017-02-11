@@ -58,13 +58,16 @@ public class FootfallControler : MonoBehaviour {
     // This is called every physics frame
     void FixedUpdate()
     {
-        if(grounded)
+        if (!Input.GetButton("Jump"))
         {
-            Vector3 currentloc = GameObject.Find(groundedname).GetComponent<Transform>().position;
-            Vector3 movement = currentloc - groundedlocation;
-            //Debug.Log("Moved"+movement.ToString()+" From: "+groundedlocation.ToString()+" to "+currentloc.ToString());
+            if (grounded)
+            {
+                Vector3 currentloc = GameObject.Find(groundedname).GetComponent<Transform>().position;
+                Vector3 movement = currentloc - groundedlocation;
+                //Debug.Log("Moved"+movement.ToString()+" From: "+groundedlocation.ToString()+" to "+currentloc.ToString());
 
-            transform.position -= movement;
+                transform.position -= movement;
+            }
         }
     }
 }
