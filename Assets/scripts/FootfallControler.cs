@@ -155,7 +155,7 @@ public class FootfallControler : MonoBehaviour {
 
         if(Input.GetButton("Reset"))
         {
-            transform.position = new Vector3((float)-1.1, (float)-11.26, (float)-1.1);
+            transform.position = new Vector3((float)-1.1, (float)-22, (float)-1.1);
             clearGrounded();
             this.badEndUI.SetActive(false);
         }
