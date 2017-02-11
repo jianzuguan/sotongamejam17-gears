@@ -21,6 +21,8 @@ public class ObstructController : MonoBehaviour {
         switch (collision.gameObject.tag) {
             case "Player":
                 this.badEndUI.SetActive(true);
+                // Change to Layer Ghost.
+                collision.gameObject.layer = 9;
                 collision.transform.position = new Vector3(
                     collision.transform.position.x,
                     collision.transform.position.y + 86,
