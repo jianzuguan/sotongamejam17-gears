@@ -9,8 +9,15 @@ public class FootfallControler : MonoBehaviour {
     private int stateLeft;
     private int stateRight;
 
+    //control options
+    public bool useDebugCubes;
+    public bool useLowestFootMode;
+
     private Vector3 groundedlocation;
     private string groundedname;
+
+    private string lastLowest;
+    private Vector3 lastlowestpoint;
 
     private Vector3 modeloc;
 
@@ -30,7 +37,9 @@ public class FootfallControler : MonoBehaviour {
     {
         foreach (ContactPoint contact in collision.contacts) {
 
-            if (contact.thisCollider.name != groundedname && contact.otherCollider.name != "Gear_000" && contact.otherCollider.name != "Gear_001" && contact.otherCollider.name != "Gear_002")
+            if (contact.thisCollider.name != groundedname && 
+                (contact.thisCollider.name == "EthanLeftFoot" | contact.thisCollider.name == "EthanRightFoot") &&
+                contact.otherCollider.name != "Gear_000" && contact.otherCollider.name != "Gear_001" && contact.otherCollider.name != "Gear_002")
             {
 
                 groundedname = contact.thisCollider.name;
@@ -43,11 +52,14 @@ public class FootfallControler : MonoBehaviour {
 
                 modeloc = transform.position;   //update model position
 
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                cube.transform.position = groundedlocation;
-                cube.transform.localScale = new Vector3((float)0.2, (float)0.2, (float)0.2);
-                cube.GetComponent<Collider>().enabled = false;
-                cube.GetComponent<MeshRenderer>().material.color = new Color(1, 0, 0);
+                if (useDebugCubes)
+                {
+                    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    cube.transform.position = groundedlocation;
+                    cube.transform.localScale = new Vector3((float)0.2, (float)0.2, (float)0.2);
+                    cube.GetComponent<Collider>().enabled = false;
+                    cube.GetComponent<MeshRenderer>().material.color = new Color(1, 0, 0);
+                }
             }
             Debug.DrawRay(contact.point, contact.normal*100, Color.red);
 
@@ -94,16 +106,55 @@ public class FootfallControler : MonoBehaviour {
     // This is called every physics frame
     void FixedUpdate()
     {
+        if(useLowestFootMode)
+        {
+            //if left foot lower
+            if (GameObject.Find("EthanLeftFoot").GetComponent<Transform>().position.y < GameObject.Find("EthanRightFoot").GetComponent<Transform>().position.y)
+            {
+                if (lastLowest != "EthanLeftFoot")
+                {
+                    lastLowest = "EthanLeftFoot";
+                    lastlowestpoint = GameObject.Find("EthanLeftFoot").GetComponent<Transform>().position;
+                }
+            }
+            else //right foot lower
+            {
+                if (lastLowest != "EthanRightFoot")
+                {
+                    lastLowest = "EthanRightFoot";
+                    lastlowestpoint = GameObject.Find("EthanRightFoot").GetComponent<Transform>().position;
+                }
+            }
+        }
+
         if (!Input.GetButton("Jump"))
         {
-            if (grounded)
+            if(useLowestFootMode)
+            {
+            Vector3 currentloc = GameObject.Find(lastLowest).GetComponent<Transform>().position;
+            Vector3 movement = currentloc - lastlowestpoint;
+            //Debug.Log("Moved"+movement.ToString()+" From: "+groundedlocation.ToString()+" to "+currentloc.ToString());
+
+            movement.y = 0;
+            transform.position -= movement;
+            }
+            else if (grounded)
             {
                 Vector3 currentloc = GameObject.Find(groundedname).GetComponent<Transform>().position;
                 Vector3 movement = currentloc - groundedlocation;
                 //Debug.Log("Moved"+movement.ToString()+" From: "+groundedlocation.ToString()+" to "+currentloc.ToString());
 
+                movement.y = 0;
                 transform.position -= movement;
             }
         }
+
+        groundedlocation += transform.forward*(Input.GetAxis("Vertical") * Time.fixedDeltaTime);
+    }
+
+    public void clearGrounded()
+    {
+        this.state = 0;
+        this.grounded = false;
     }
 }
