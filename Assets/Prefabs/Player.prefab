@@ -858,6 +858,7 @@ GameObject:
   - component: {fileID: 54736779615622222}
   - component: {fileID: 75710947607413446}
   - component: {fileID: 114504530253001348}
+  - component: {fileID: 114289718577715264}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2790,7 +2791,7 @@ Camera:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509975010497442}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -2811,7 +2812,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 1
+  m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
@@ -2978,6 +2979,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sensor: 10
+--- !u!114 &114289718577715264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503522663431626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 513befb646efb09458f2fe4345e6bf42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam1: {fileID: 20714271196527102}
+  cam2: {fileID: 20310030262870254}
 --- !u!114 &114399709743229158
 MonoBehaviour:
   m_ObjectHideFlags: 1
