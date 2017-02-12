@@ -16,7 +16,7 @@ public class ModelOrientation : MonoBehaviour {
 
 	// Offset angle
     public void Offset(Quaternion offsetQuaternion) {
-		transform.eulerAngles = new Vector3(0,15,0);
+		transform.eulerAngles = new Vector3(0,(float)0.1,0);
 		transform.Rotate(offsetQuaternion.eulerAngles);
     }
 
