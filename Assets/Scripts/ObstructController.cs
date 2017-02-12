@@ -25,7 +25,7 @@ public class ObstructController : MonoBehaviour {
                 collision.gameObject.layer = 9;
                 collision.transform.position = new Vector3(
                     collision.transform.position.x,
-                    collision.transform.position.y + 86,
+                    2,
                     collision.transform.position.z);
                 collision.gameObject.GetComponent<FootfallControler>().clearGrounded();
                 break;
